@@ -1,0 +1,14 @@
+2026-07-11 13:45:04,780 - INFO - Job started
+2026-07-11 13:45:04,781 - INFO - Config loaded successfully: seed=42, window=5, version=v1
+2026-07-11 13:45:04,806 - INFO - Rows loaded: 10000
+2026-07-11 13:45:04,806 - INFO - Calculating rolling mean
+2026-07-11 13:45:04,808 - INFO - Generating signals
+2026-07-11 13:45:04,810 - INFO - Metrics: {'version': 'v1', 'rows_processed': 10000, 'metric': 'signal_rate', 'value': np.float64(0.4989), 'latency_ms': 28, 'seed': 42, 'status': 'success'}
+2026-07-11 13:45:04,811 - INFO - Job completed successfully
+2026-07-11 14:23:47,832 | INFO | Job started
+2026-07-11 14:23:47,834 | INFO | Config loaded successfully: seed=42, window=5, version=v1
+2026-07-11 14:23:47,859 | INFO | Rows loaded: 10000
+2026-07-11 14:23:47,859 | INFO | Calculating rolling mean
+2026-07-11 14:23:47,864 | INFO | Generating signals
+2026-07-11 14:23:47,867 | INFO | Metrics: {'version': 'v1', 'rows_processed': 10000, 'metric': 'signal_rate', 'value': np.float64(0.4989), 'latency_ms': 32, 'seed': 42, 'status': 'success'}
+2026-07-11 14:23:47,867 | INFO | Job completed successfully
