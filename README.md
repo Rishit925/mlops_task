@@ -2,21 +2,21 @@
 
 ## Overview
 
-This project is a minimal MLOps-style batch processing pipeline built in Python. It demonstrates:
+This project is a minimal MLOps-style batch processing pipeline developed in Python. It demonstrates:
 
 - Reproducible execution using a YAML configuration and fixed random seed
-- Data validation and error handling
-- Rolling mean computation
+- Data validation and robust error handling
+- Rolling mean computation on market data
 - Binary signal generation
 - Structured metrics output in JSON format
-- Logging for observability
+- Detailed logging for observability
 - Dockerized deployment for one-command execution
 
 ---
 
 ## Project Structure
 
-```
+```text
 mlops-task/
 │
 ├── run.py
@@ -26,15 +26,17 @@ mlops-task/
 ├── Dockerfile
 ├── README.md
 ├── metrics.json
-└── run.log
+├── run.log
+├── .dockerignore
+└── .gitignore (optional)
 ```
 
 ---
 
 ## Requirements
 
-- Python 3.11 (or compatible version)
-- Docker Desktop (for containerized execution)
+- Python 3.11 or later
+- Docker Desktop
 
 ---
 
@@ -42,21 +44,21 @@ mlops-task/
 
 Clone the repository or download the project.
 
-Create a virtual environment (optional):
+### Create a Virtual Environment (Optional)
 
 ```bash
 python -m venv venv
 ```
 
-Activate it.
+### Activate the Virtual Environment
 
-Windows:
+**Windows**
 
 ```bash
 venv\Scripts\activate
 ```
 
-Install dependencies:
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -108,8 +110,9 @@ docker run --rm mlops-task
 
 The container will:
 
-- Read the dataset
-- Process the rolling mean
+- Read the configuration
+- Load the dataset
+- Compute the rolling mean
 - Generate binary signals
 - Create `metrics.json`
 - Create `run.log`
@@ -121,34 +124,34 @@ The container will:
 
 The application performs the following steps:
 
-1. Load configuration from YAML
-2. Validate configuration fields
+1. Load configuration from `config.yaml`
+2. Validate required configuration fields
 3. Set NumPy random seed
-4. Load CSV dataset
-5. Validate dataset
-6. Compute rolling mean on the `close` column
-7. Generate binary trading signals
-8. Calculate performance metrics
-9. Write metrics to `metrics.json`
-10. Log execution details to `run.log`
+4. Load and validate the CSV dataset
+5. Compute the rolling mean of the `close` column
+6. Generate binary trading signals
+7. Calculate processing metrics
+8. Save metrics to `metrics.json`
+9. Log execution details to `run.log`
+10. Print the metrics JSON to stdout
 
 ---
 
-## Output
-
-### Sample metrics.json
+## Example Output (`metrics.json`)
 
 ```json
 {
     "version": "v1",
     "rows_processed": 10000,
     "metric": "signal_rate",
-    "value": 0.4989,
-    "latency_ms": 19,
+    "value": 0.4990,
+    "latency_ms": 25,
     "seed": 42,
     "status": "success"
 }
 ```
+
+> **Note:** `value` and `latency_ms` may vary slightly depending on the dataset and machine.
 
 ---
 
@@ -157,36 +160,43 @@ The application performs the following steps:
 The application generates `run.log` containing:
 
 - Job start timestamp
-- Configuration details
-- Dataset validation
-- Processing steps
+- Configuration validation
+- Dataset loading
+- Rolling mean computation
+- Signal generation
 - Metrics summary
 - Job completion status
-- Exceptions and validation errors (if any)
+- Exception details (if any)
 
 ---
 
 ## Error Handling
 
-The application handles the following errors gracefully:
+The application gracefully handles:
 
 - Missing configuration file
-- Invalid YAML configuration
+- Invalid configuration format
 - Missing required configuration fields
 - Missing input CSV
 - Invalid CSV format
 - Empty dataset
 - Missing `close` column
 
-In every case, a `metrics.json` file is generated containing an appropriate error message.
+In every failure case, a `metrics.json` file is still generated with an appropriate error message.
 
 ---
 
 ## Dependencies
 
-- pandas
-- numpy
+- NumPy
+- Pandas
 - PyYAML
 
 ---
+
+## Notes
+
+- The application uses a fixed random seed (`seed: 42`) to ensure reproducibility.
+- No file paths are hardcoded; all paths are provided through command-line arguments.
+- The project is fully Dockerized for consistent execution across environments.
 
