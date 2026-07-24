@@ -43,6 +43,8 @@ The project demonstrates:
 - Detailed execution logging
 - Dockerized execution
 
+---
+
 ## Requirements
 
 - Python 3.9+
